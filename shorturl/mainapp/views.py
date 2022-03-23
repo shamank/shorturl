@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.views.generic import DetailView, TemplateView
 
 from .models import ShortUrls
 from .forms import MakeNewUrl

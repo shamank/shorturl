@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.core.mail import send_mail
 
-from .forms import UserRegisterForm, UserLoginForm
+from .forms import UserRegisterForm, UserLoginForm, UserFeedBackForm
 
 # Create your views here.
 
@@ -37,3 +38,32 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('home')
+
+def feedback(request):
+    if request.method == 'POST':
+        form = UserFeedBackForm(request.POST)
+        if form.is_valid():
+            text = f"""
+            От: {form.cleaned_data['name']}
+            email: {form.cleaned_data['mail']}
+            Текст:
+            {form.cleaned_data['content']}
+            """
+            mail = send_mail(
+                form.cleaned_data['subject'],
+                text,
+                'rusya-mald@yandex.ru',
+                ['maldybaev.r@yandex.ru',],
+                fail_silently=False
+            )
+            if mail:
+                messages.success(request, 'Обращение отправлено!')
+                return redirect('feedback')
+            else:
+                messages.error(request, 'Ошибка отправки!')
+        else:
+            messages.error(request, 'Ошибка отправки!')
+    else:
+        form = UserFeedBackForm()
+
+    return render(request, 'users/feedback.html', {'form': form})

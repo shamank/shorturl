@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %} История {% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+{% for i in urls %}
+{{ i }} - {{ i.full_url }} <br>
+{% endfor %}
+{% else %}
+Для просмотра истории необходимо авторизоваться!
+{% endif %}
+
+{% endblock %}

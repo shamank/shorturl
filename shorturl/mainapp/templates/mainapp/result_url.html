@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load qr_code %}
+
+{% block title %} Результат {% endblock %}
+
+{% block content %}
+
+Короткая ссылка - <a href="../goto/{{data.short_url}}">127.0.0.1:8000/goto/{{data.short_url}}</a>
+<br>
+Оригинальная ссылка - <a href="{{data.full_url}}">{{data.full_url}}</a>
+<br>
+QR:
+{% qr_from_text data.full_url size="M" %}
+
+{% endblock %}

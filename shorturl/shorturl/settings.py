@@ -129,7 +129,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 from .config import email_user, email_password
 # Email
 EMAIL_HOST = 'smtp.yandex.ru'

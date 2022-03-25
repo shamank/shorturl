@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from .models import ShortUrls
 from .forms import MakeNewUrl
 
+import random, string
 import qrcode
 # Create your views here.
 
@@ -32,6 +33,8 @@ def makeurl(request):
         form = MakeNewUrl(request.POST)
         if form.is_valid():
             temp_model = form.save(commit=False)
+            if form.cleaned_data['short_url'] == '':
+                temp_model.short_url = ''.join(random.sample(string.ascii_letters, random.randint(3, 8)))
             if request.user.is_authenticated:
                 temp_model.created_by = request.user
             obj = temp_model
@@ -39,6 +42,7 @@ def makeurl(request):
             return redirect(obj)
         else:
             messages.error(request, 'Ошибка!')
+
     else:
         form = MakeNewUrl()
 

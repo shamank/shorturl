@@ -23,7 +23,7 @@ def homepage(request):
             temp_model.save()
             return redirect(obj)
         else:
-            messages.error(request, 'Ошибка!')
+            messages.error(request, 'Ошибка! Попробуйте снова!')
     else:
         form = MakeNewUrl()
 
@@ -43,7 +43,7 @@ def makeurl(request):
             temp_model.save()
             return redirect(obj)
         else:
-            messages.error(request, 'Ошибка!')
+            messages.error(request, 'Ошибка! Попробуйте снова!')
 
     else:
         form = MakeNewUrl()
@@ -60,13 +60,15 @@ def history_urls(request):
     return render(request, 'mainapp/history.html', {'urls': data})
 
 
-def result_url(request, slug):
+def info_url(request, slug):
     data = ShortUrls.objects.get(pk=slug)
 
-    return render(request, 'mainapp/result_url.html', {'data': data})
+    return render(request, 'mainapp/info_url.html', {'data': data})
 
 
 def Shorturl(request, s_url):
     model = ShortUrls.objects.get(pk=s_url)
+    model.views = model.views + 1
+    model.save()
     return redirect(model.full_url)
 

@@ -9,6 +9,8 @@
 <br>
 Оригинальная ссылка - <a href="{{data.full_url}}">{{data.full_url}}</a>
 <br>
+Количество переходов по ссылке - {{ data.views }}
+<br>
 QR:
 {% qr_from_text data.short_url size="M" %}
 

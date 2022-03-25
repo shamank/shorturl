@@ -9,11 +9,12 @@ class ShortUrls(models.Model):
     full_url = models.CharField(max_length=255, verbose_name='Длинная ссылка')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     created_by = models.ForeignKey('auth.user', on_delete=models.CASCADE, blank=True, null=True)
+    views = models.IntegerField(default=0, verbose_name='Количество переходов')
 
 
     def __str__(self):
         return self.short_url
 
     def get_absolute_url(self):
-        return reverse_lazy('result_url', kwargs={'slug': self.pk})
+        return reverse_lazy('info_url', kwargs={'slug': self.pk})
 

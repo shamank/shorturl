@@ -5,4 +5,18 @@
 
 <h1>Главная страница!</h1>
 
+<div class="card" style="width: 18rem;">
+  <img src="https://yt3.ggpht.com/a/AATXAJxtjrAEXZ1svxbaS88sB3jrm9uAv4k4IHuQwE5V1g=s900-c-k-c0xffffffff-no-rj-mo" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Создание ссылки</h5>
+    <p class="card-text">Для создание вашей ссылки, заполните форму ниже</p>
+      <form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+      <button type="submit" class="btn btn-primary btn-block">Создать!</button>
+</form>
+  </div>
+</div>
+
 {% endblock %}

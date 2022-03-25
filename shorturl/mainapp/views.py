@@ -10,7 +10,21 @@ import qrcode
 
 
 def homepage(request):
-    return render(request, 'mainapp/index.html')
+    if request.method == 'POST':
+        form = MakeNewUrl(request.POST)
+        if form.is_valid():
+            temp_model = form.save(commit=False)
+            if request.user.is_authenticated:
+                temp_model.created_by = request.user
+            obj = temp_model
+            temp_model.save()
+            return redirect(obj)
+        else:
+            messages.error(request, 'Ошибка!')
+    else:
+        form = MakeNewUrl()
+
+    return render(request, 'mainapp/index.html', {'form': form})
 
 
 def makeurl(request):

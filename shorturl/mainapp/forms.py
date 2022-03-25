@@ -15,5 +15,5 @@ class MakeNewUrl(forms.ModelForm):
         fields = ['short_url', 'full_url', ]
         widgets = {
             'short_url': forms.TextInput(attrs={'class': 'form-control'}),
-            'full_url': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+            'full_url': forms.TextInput(attrs={'class': 'form-control', 'rows': 5}),
         }

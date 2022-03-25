@@ -2,6 +2,11 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
+from django.views.decorators.cache import cache_page
+from django.conf import settings
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+
+
 from .models import ShortUrls
 from .forms import MakeNewUrl
 
@@ -9,7 +14,10 @@ import random, string
 import qrcode
 # Create your views here.
 
+# redis_instance = redis.StrictRedis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=0)
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
+@cache_page(CACHE_TTL)
 def homepage(request):
     if request.method == 'POST':
         form = MakeNewUrl(request.POST)

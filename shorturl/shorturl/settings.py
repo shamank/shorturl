@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'qr_code',
     'captcha',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -139,9 +140,15 @@ EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
 # Cache
-CASHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': BASE_DIR / 'django_cache'
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "example"
     }
 }
+
+CACHE_TTL = 60 * 15

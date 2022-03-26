@@ -63,7 +63,7 @@ def makeurl(request):
 
 def history_urls(request):
     if request.user.is_authenticated:
-        data = User.objects.get(pk=request.user.id).shorturls_set.all()
+        data = ShortUrls.objects.filter(created_by=request.user.id).select_related('created_by')
     else:
         data = ''
 

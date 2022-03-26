@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'qr_code',
     'captcha',
     'rest_framework',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -152,3 +153,7 @@ CACHES = {
 }
 
 CACHE_TTL = 60 * 15
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]

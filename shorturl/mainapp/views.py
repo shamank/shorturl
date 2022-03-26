@@ -6,6 +6,8 @@ from django.views.decorators.cache import cache_page
 from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 
+from rest_framework.viewsets import ModelViewSet
+from .serializers import ShortUrlSerializer
 
 from .models import ShortUrls
 from .forms import MakeNewUrl
@@ -15,9 +17,9 @@ import qrcode
 # Create your views here.
 
 # redis_instance = redis.StrictRedis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=0)
-CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+#CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
-@cache_page(CACHE_TTL)
+#@cache_page(CACHE_TTL)
 def homepage(request):
     if request.method == 'POST':
         form = MakeNewUrl(request.POST)
@@ -80,3 +82,6 @@ def Shorturl(request, s_url):
     model.save()
     return redirect(model.full_url)
 
+class ShortView(ModelViewSet):
+    queryset = ShortUrls.objects.all()
+    serializer_class = ShortUrlSerializer

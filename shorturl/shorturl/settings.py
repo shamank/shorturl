@@ -142,6 +142,8 @@ EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
 # Cache
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
@@ -152,8 +154,7 @@ CACHES = {
         "KEY_PREFIX": "example"
     }
 }
-
-CACHE_TTL = 60 * 15
+CACHE_TTL = 15
 
 INTERNAL_IPS = [
     "127.0.0.1",

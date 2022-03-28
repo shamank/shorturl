@@ -18,3 +18,12 @@ class ShortUrls(models.Model):
     def get_absolute_url(self):
         return reverse_lazy('info_url', kwargs={'slug': self.pk})
 
+    def to_json(self):
+        return {
+            'short_url': self.short_url,
+            'full_url': self.full_url,
+            'created_at': self.created_at,
+            'created_by': self.created_by,
+            'views': self.views
+        }
+
